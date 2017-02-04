@@ -1,166 +1,75 @@
 # Class: puppetmaster_webhook
 # ===========================
 #
-# This will install and configure the webhook for git webhooks
-# so it will run an r10k deploy * action
+# This will install and configure a webhook for triggering r10k
 #
 # === Requirements
 #
 # No requirements.
 #
-# - puppetlabs-operations/puppet-bundler
-#
 # === Parameters
 #
-# [*webhook_home*]
-# This is the directory where all stuff of
-# this webhook is installed
+# [*r10_cmd*]
+# The full path to r10k
+# Defaults to '/usr/bin/r10k'
 #
-# [*webhook_port*]
-# On which port it is listening for requests
-#
-# [*webhook_owner*]
-# The owner of this service/script
-#
-# [*webhook_group*]
-# The group of this service/script
-#
-# [*repo_puppetfile*]
-# The name of the repository where the 'Puppetfile'
-# is stored.
+# [*repo_control*]
+# The name of the control repo
 #
 # [*repo_hieradata*]
 # The name of the repository where the 'hieradata'
 # is stored.
 #
-# [*ruby_dev*]
-# The package name of ruby-devel (or when debian: ruby-dev)
+# [*repo_puppetfile*]
+# The name of the repository where the 'Puppetfile'
+# is stored.
+#
+# [*webhook_bind*]
+# On which address should the webhook bind
+#
+# [*webhook_group*]
+# The group of this service/script
+#
+# [*webhook_home*]
+# This is the directory where all stuff of
+# this webhook is installed
+#
+# [*webhook_owner*]
+# The owner of this service/script
+#
+# [*webhook_port*]
+# On which port should the webhook listen
 #
 # === Example
 #
 #  class { 'puppetmaster_webhook':
+#    manage_repo  => false,
 #    webhook_port => '82',
 #    repo_control => 'control-repo',
 #  }
 #
 # === Authors
 #
-# Author Name: ikben@werner-dijkerman.nl
-#
-# === Copyright
-#
-# Copyright 2014 Werner Dijkerman
+# Author Name: Gene Liverman gene@technicalissues.us
 #
 class puppetmaster_webhook (
-  $webhook_home    = $webhook::params::homedir,
-  $webhook_port    = $webhook::params::port,
-  $webhook_owner   = $webhook::params::owner,
-  $webhook_group   = $webhook::params::group,
-  $repo_control    = undef,
-  $repo_puppetfile = undef,
-  $repo_hieradata  = undef,
-  $ruby_dev        = $webhook::params::ruby_dev,
+  $manage_ruby     = $::puppetmaster_webhook::params::manage_ruby,
+  $r10k_cmd        = $::puppetmaster_webhook::params::r10k_cmd,
+  $repo_control    = $::puppetmaster_webhook::params::repo_control,
+  $repo_hieradata  = $::puppetmaster_webhook::params::repo_hieradata,
+  $repo_puppetfile = $::puppetmaster_webhook::params::repo_puppetfile,
+  $webhook_bind    = $::puppetmaster_webhook::params::webhook_bind,
+  $webhook_group   = $::puppetmaster_webhook::params::webhook_group,
+  $webhook_home    = $::puppetmaster_webhook::params::webhook_home,
+  $webhook_owner   = $::puppetmaster_webhook::params::webhook_owner,
+  $webhook_port    = $::puppetmaster_webhook::params::webhook_port,
 ) inherits puppetmaster_webhook::params {
+  contain ::puppetmaster_webhook::install
+  contain ::puppetmaster_webhook::config
+  contain ::puppetmaster_webhook::service
 
-  $osfamily = inline_template('<%= osfamily.downcase %>')
-
-  exec { 'create_webhook_homedir':
-    command => "mkdir -p ${webhook_home}",
-    path    => '/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin',
-    creates => $webhook_home,
-  }
-
-  file { "${webhook_home}/config.ru":
-    ensure  => present,
-    owner   => $webhook_owner,
-    group   => $webhook_group,
-    mode    => '0755',
-    source  => 'puppet:///modules/webhook/config.ru',
-    require => Exec['create_webhook_homedir'],
-  }
-
-  file { "${webhook_home}/webhook_config.json":
-    ensure  => present,
-    owner   => $webhook_owner,
-    group   => $webhook_group,
-    mode    => '0644',
-    content => template('webhook/webhook_config.json.erb'),
-    require => Exec['create_webhook_homedir'],
-    notify  => Service['webhook'],
-  }
-
-  file { "${webhook_home}/Gemfile":
-    ensure  => present,
-    owner   => $webhook_owner,
-    group   => $webhook_group,
-    mode    => '0755',
-    source  => 'puppet:///modules/webhook/Gemfile',
-    #notify  => Bundler::Install[$webhook_home],
-    require => Exec['create_webhook_homedir'],
-  }
-
-  file { "${webhook_home}/Gemfile.lock":
-    ensure  => present,
-    owner   => $webhook_owner,
-    group   => $webhook_group,
-    mode    => '0755',
-    source  => 'puppet:///modules/webhook/Gemfile.lock',
-    #notify  => Bundler::Install[$webhook_home],
-    require => Exec['create_webhook_homedir'],
-  }
-
-  file { "${webhook_home}/log":
-    ensure  => directory,
-    owner   => $webhook_owner,
-    group   => $webhook_group,
-    mode    => '0755',
-    require => Exec['create_webhook_homedir'],
-  }
-
-  file { "${webhook_home}/webhook.rb":
-    ensure  => present,
-    owner   => $webhook_owner,
-    group   => $webhook_group,
-    mode    => '0755',
-    require => Exec['create_webhook_homedir'],
-    content => template('webhook/webhook.rb'),
-    notify  => Service['webhook'],
-  }
-
-  file { '/etc/init.d/webhook':
-    ensure  => present,
-    mode    => '0775',
-    content => template("webhook/service.${osfamily}.erb"),
-  }
-
-  if ! defined(Package[$ruby_dev]) {
-    package { $ruby_dev:
-      ensure   => 'installed',
-    }
-  }
-
-  bundler::install { $webhook_home:
-    user       => $webhook_owner,
-    group      => $webhook_group,
-    deployment => true,
-    without    => 'development test doc',
-    require    => [
-      File["${webhook_home}/config.ru"],
-      File["${webhook_home}/Gemfile"],
-      File["${webhook_home}/Gemfile.lock"],
-      Package[$ruby_dev],
-    ],
-  }
-
-  service { 'webhook':
-    ensure     => running,
-    hasstatus  => true,
-    enable     => true,
-    hasrestart => true,
-    require    => [
-      Bundler::Install[$webhook_home],
-      File["${webhook_home}/webhook.rb"],
-    ],
-  }
+  Class['::puppetmaster_webhook::install'] ->
+  Class['::puppetmaster_webhook::config'] ->
+  Class['::puppetmaster_webhook::service']
 }
 

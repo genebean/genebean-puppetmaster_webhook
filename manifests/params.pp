@@ -11,17 +11,14 @@
 # sample usage:
 #
 class puppetmaster_webhook::params {
-
-  $homedir  = '/opt/webhook'
-  $port     = '81'
-  $owner    = 'root'
-  $group    = 'root'
-
-  # OS specific stuff
-  if $::osfamily == 'RedHat' {
-    $ruby_dev = 'ruby-devel'
-  } elsif $::osfamily == 'Debian' {
-    $ruby_dev = 'ruby-dev'
-  }
-
+  $manage_ruby     = true
+  $r10k_cmd        = '/usr/bin/r10k'
+  $repo_control    = undef
+  $repo_hieradata  = undef
+  $repo_puppetfile = undef
+  $webhook_bind    = '0.0.0.0'
+  $webhook_group   = 'root'
+  $webhook_home    = '/opt/webhook'
+  $webhook_owner   = 'root'
+  $webhook_port    = '8081'
 }

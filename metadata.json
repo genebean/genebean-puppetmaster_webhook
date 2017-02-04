@@ -8,7 +8,7 @@
   "project_page": "https://github.com:genebean/genebean-puppetmaster_webhook",
   "issues_url": "https://github.com:genebean/genebean-puppetmaster_webhook/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"maestrodev-rvm", "version_requirement":">= 1.13.1 < 2.0.0"}
   ],
   "data_provider": null
 }

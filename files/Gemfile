@@ -1,0 +1,7 @@
+source 'http://rubygems.org'
+
+gem 'json',           '~> 2.0'
+gem 'puma',           '~> 3.7'
+gem 'rack',           '~> 1.6'
+gem 'sinatra',        '~> 1.4'
+gem 'slack-notifier', '~> 2.0'

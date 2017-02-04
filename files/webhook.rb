@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'json'
 
-webhook_config = (Dir.pwd) + '/webhook_config.json.erb'
+webhook_config = (Dir.pwd) + '/webhook_config.json'
 
 if File.exists?(webhook_config)
   $config_obj = JSON.parse(File.read(webhook_config))
