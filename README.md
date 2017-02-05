@@ -17,7 +17,8 @@
 ## Description
 
 This module installs and configures a Sinatra based webhook receiver designed to
-trigger r10k
+trigger r10k. If you choose, you can also have messages from this receiver sent to
+a Slack channel.
 
 ## Setup
 
@@ -46,6 +47,7 @@ incldue ::puppetmaster_webhook
 class { 'puppetmaster_webhook':
   webhook_port => '8888',
   repo_control => 'control-repo',
+  slack_url    => 'https://hooks.slack.com/services/YOUR-URL/GOES-HERE',
 }
 ```
 
@@ -64,6 +66,9 @@ The name of the repository where the 'hieradata' is stored.
 
 *repo_puppetfile*  
 The name of the repository where the 'Puppetfile' is stored.
+
+*slack_url*
+The url provided during the setup of a custom webhook in Slack
 
 *webhook_bind*  
 On which address should the webhook bind  

@@ -1,9 +1,11 @@
+# Does all the file configuration and setups up the needed gems
 class puppetmaster_webhook::config (
   $manage_ruby     = $::puppetmaster_webhook::manage_ruby,
   $r10k_cmd        = $::puppetmaster_webhook::r10k_cmd,
   $repo_control    = $::puppetmaster_webhook::repo_control,
   $repo_hieradata  = $::puppetmaster_webhook::repo_hieradata,
   $repo_puppetfile = $::puppetmaster_webhook::repo_puppetfile,
+  $slack_url       = $::puppetmaster_webhook::slack_url,
   $webhook_bind    = $::puppetmaster_webhook::webhook_bind,
   $webhook_group   = $::puppetmaster_webhook::webhook_group,
   $webhook_home    = $::puppetmaster_webhook::webhook_home,
@@ -25,6 +27,7 @@ class puppetmaster_webhook::config (
   exec { 'refresh_services':
     command     => '/usr/bin/systemctl daemon-reload',
     refreshonly => true,
+    notify      => Service['puppetmaster_webhook'],
   }
 
   exec { 'run_bundler':
