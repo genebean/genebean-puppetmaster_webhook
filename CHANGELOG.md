@@ -1,5 +1,10 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.3.0
+
+* Updated docs including info on Slack
+* fixed config file template
+
 ## 0.2.0
 
 * Updated docs
