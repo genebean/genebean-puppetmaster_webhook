@@ -84,12 +84,6 @@ are Known Issues, you might want to include them under their own heading here.
 Pull requests are welcome. Testing is done against CentOS 7 using Puppet 4.
 A Vagrantfile is included to aide in testing and development.
 
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
-
 
 [gh-tag-img]: https://img.shields.io/github/tag/genebean/genebean-puppetmaster_webhook.svg
 [gh-link]: https://github.com/genebean/genebean-puppetmaster_webhook
