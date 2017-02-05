@@ -1,0 +1,7 @@
+fixtures:
+  forge_modules:
+    gnupg: "golja/gnupg"
+    rvm: "maestrodev/rvm"
+    stdlib: "puppetlabs/stdlib"
+  symlinks:
+    puppetmaster_webhook: "#{source_dir}"

@@ -1,48 +1,75 @@
 # Class: puppetmaster_webhook
 # ===========================
 #
-# Full description of class puppetmaster_webhook here.
+# This will install and configure a webhook for triggering r10k
 #
-# Parameters
-# ----------
+# === Requirements
 #
-# Document parameters here.
+# No requirements.
 #
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
+# === Parameters
 #
-# Variables
-# ----------
+# [*r10_cmd*]
+# The full path to r10k
+# Defaults to '/usr/bin/r10k'
 #
-# Here you should define a list of variables that this module would require.
+# [*repo_control*]
+# The name of the control repo
 #
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# [*repo_hieradata*]
+# The name of the repository where the 'hieradata'
+# is stored.
 #
-# Examples
-# --------
+# [*repo_puppetfile*]
+# The name of the repository where the 'Puppetfile'
+# is stored.
 #
-# @example
-#    class { 'puppetmaster_webhook':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#    }
+# [*webhook_bind*]
+# On which address should the webhook bind
 #
-# Authors
-# -------
+# [*webhook_group*]
+# The group of this service/script
 #
-# Author Name <author@domain.com>
+# [*webhook_home*]
+# This is the directory where all stuff of
+# this webhook is installed
 #
-# Copyright
-# ---------
+# [*webhook_owner*]
+# The owner of this service/script
 #
-# Copyright 2017 Your name here, unless otherwise noted.
+# [*webhook_port*]
+# On which port should the webhook listen
 #
-class puppetmaster_webhook {
+# === Example
+#
+#  class { 'puppetmaster_webhook':
+#    manage_repo  => false,
+#    webhook_port => '82',
+#    repo_control => 'control-repo',
+#  }
+#
+# === Authors
+#
+# Author Name: Gene Liverman gene@technicalissues.us
+#
+class puppetmaster_webhook (
+  $manage_ruby     = $::puppetmaster_webhook::params::manage_ruby,
+  $r10k_cmd        = $::puppetmaster_webhook::params::r10k_cmd,
+  $repo_control    = $::puppetmaster_webhook::params::repo_control,
+  $repo_hieradata  = $::puppetmaster_webhook::params::repo_hieradata,
+  $repo_puppetfile = $::puppetmaster_webhook::params::repo_puppetfile,
+  $webhook_bind    = $::puppetmaster_webhook::params::webhook_bind,
+  $webhook_group   = $::puppetmaster_webhook::params::webhook_group,
+  $webhook_home    = $::puppetmaster_webhook::params::webhook_home,
+  $webhook_owner   = $::puppetmaster_webhook::params::webhook_owner,
+  $webhook_port    = $::puppetmaster_webhook::params::webhook_port,
+) inherits puppetmaster_webhook::params {
+  contain ::puppetmaster_webhook::install
+  contain ::puppetmaster_webhook::config
+  contain ::puppetmaster_webhook::service
 
-
+  Class['::puppetmaster_webhook::install'] ->
+  Class['::puppetmaster_webhook::config'] ->
+  Class['::puppetmaster_webhook::service']
 }
+
