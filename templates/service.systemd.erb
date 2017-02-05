@@ -20,7 +20,7 @@ WorkingDirectory=<%= @webhook_home %>
 # `bundle binstubs puma --path ./sbin`
 # in the WorkingDirectory (replace <WD> below)
 # You can alternatively use `bundle exec --keep-file-descriptors puma`
-ExecStart=<%= @ruby_prefix %>bundle exec puma --environment production --bind tcp://<%= @webhook_bind %> --port <%= @webhook_port %> --pidfile /var/run/webhook_puma.pid
+ExecStart=<%= @ruby_prefix %>bundle exec puma --environment production --bind tcp://<%= @webhook_bind %>:<%= @webhook_port %> --pidfile /var/run/webhook_puma.pid
 Restart=always
 
 [Install]
