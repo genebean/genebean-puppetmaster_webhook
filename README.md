@@ -1,3 +1,6 @@
+[![Puppet Forge][pf-img]][pf-link]
+[![GitHub tag][gh-tag-img]][gh-link]
+
 # puppetmaster_webhook
 
 #### Table of Contents
@@ -14,44 +17,20 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
-
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This module installs and configures a Sinatra based webhook receiver designed to
+trigger r10k
 
 ## Setup
 
 ### What puppetmaster_webhook affects **OPTIONAL**
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+By default this module will install RVM system-wide and uses it to install Ruby 2.2.6.
 
 ### Beginning with puppetmaster_webhook
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+By simply including this module you will end up with a webhook receiver listening
+on all interfaces on port 8081. It assumes that you are using a control repo named
+`control-repo`.
 
 ## Usage
 
@@ -61,10 +40,39 @@ examples and code samples for doing things with your module.
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+*r10_cmd*  
+The full path to r10k  
+Defaults to `/usr/bin/r10k`
+
+*repo_control*  
+The name of the control repo  
+Defaults to `control-repo`
+
+*repo_hieradata*  
+The name of the repository where the 'hieradata' is stored.
+
+*repo_puppetfile*  
+The name of the repository where the 'Puppetfile' is stored.
+
+*webhook_bind*  
+On which address should the webhook bind  
+Defaults to `0.0.0.0`
+
+*webhook_group*  
+The group of this service/script  
+Defaults to `8081`
+
+*webhook_home*  
+This is the directory where all stuff of this webhook is installed  
+Defaults to `/opt/webhook`
+
+*webhook_owner*  
+The owner of this service/script  
+Defaults to `root`
+
+*webhook_port*  
+On which port should the webhook listen  
+Defaults to `root`
 
 ## Limitations
 
@@ -73,11 +81,19 @@ are Known Issues, you might want to include them under their own heading here.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Pull requests are welcome. Testing is done against CentOS 7 using Puppet 4.
+A Vagrantfile is included to aide in testing and development.
 
 ## Release Notes/Contributors/Etc. **Optional**
 
 If you aren't using changelog, put your release notes here (though you should
 consider using changelog). You can also add any additional sections you feel
 are necessary or important to include here. Please use the `## ` header.
+
+
+[gh-tag-img]: https://img.shields.io/github/tag/genebean/genebean-puppetmaster_webhook.svg
+[gh-link]: https://github.com/genebean/genebean-puppetmaster_webhook
+[pf-img]: https://img.shields.io/puppetforge/v/genebean/puppetmaster_webhook.svg
+[pf-link]: https://forge.puppetlabs.com/genebean/puppetmaster_webhook
+[travis-ci]: https://travis-ci.org/genebean/genebean-puppetmaster_webhook
+[travis-img-master]: https://img.shields.io/travis/genebean/genebean-puppetmaster_webhook/master.svg
