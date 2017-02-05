@@ -1,5 +1,13 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.1.2
+
+* Fixed version in the metadata file
+
+## 0.1.1
+
+* Removed unneded text from the README
+
 ## 0.1.0
 
 * Initial version
