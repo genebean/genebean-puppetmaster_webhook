@@ -9,36 +9,42 @@
 #
 # === Parameters
 #
-# [*r10_cmd*]
+# *r10_cmd*
 # The full path to r10k
-# Defaults to '/usr/bin/r10k'
+# Defaults to `/usr/bin/r10k`
 #
-# [*repo_control*]
+# *repo_control*
 # The name of the control repo
+# Defaults to `control-repo`
 #
-# [*repo_hieradata*]
-# The name of the repository where the 'hieradata'
-# is stored.
+# *repo_hieradata*
+# The name of the repository where the 'hieradata' is stored.
 #
-# [*repo_puppetfile*]
-# The name of the repository where the 'Puppetfile'
-# is stored.
+# *repo_puppetfile*
+# The name of the repository where the 'Puppetfile' is stored.
 #
-# [*webhook_bind*]
+# *slack_url*
+# The url provided during the setup of a custom webhook in Slack
+#
+# *webhook_bind*
 # On which address should the webhook bind
+# Defaults to `0.0.0.0`
 #
-# [*webhook_group*]
+# *webhook_group*
 # The group of this service/script
+# Defaults to `8081`
 #
-# [*webhook_home*]
-# This is the directory where all stuff of
-# this webhook is installed
+# *webhook_home*
+# This is the directory where all stuff of this webhook is installed
+# Defaults to `/opt/webhook`
 #
-# [*webhook_owner*]
+# *webhook_owner*
 # The owner of this service/script
+# Defaults to `root`
 #
-# [*webhook_port*]
+# *webhook_port*
 # On which port should the webhook listen
+# Defaults to `root`
 #
 # === Example
 #
@@ -59,6 +65,7 @@ class puppetmaster_webhook (
   $repo_control    = $::puppetmaster_webhook::params::repo_control,
   $repo_hieradata  = $::puppetmaster_webhook::params::repo_hieradata,
   $repo_puppetfile = $::puppetmaster_webhook::params::repo_puppetfile,
+  $slack_url       = $::puppetmaster_webhook::params::slack_url,
   $webhook_bind    = $::puppetmaster_webhook::params::webhook_bind,
   $webhook_group   = $::puppetmaster_webhook::params::webhook_group,
   $webhook_home    = $::puppetmaster_webhook::params::webhook_home,

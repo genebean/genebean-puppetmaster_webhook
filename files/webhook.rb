@@ -21,6 +21,19 @@ repo_puppetfile = $config_obj['repo_puppetfile']
 repo_hieradata  = $config_obj['repo_hieradata']
 $slack_url      = $config_obj['slack_url']
 
+before do
+  if env['HTTP_X_GITHUB_EVENT']
+    logger.info('This message seems to be from GitHub')
+    @request_source = 'GitHub'
+  elsif env['HTTP_X_GITLAB_EVENT']
+    logger.info('This message seems to be from GitLab')
+    @request_source = 'GitLab'
+  else
+    logger.info('This message seems to be from somewhere unknown')
+    @request_source = 'unknown'
+  end
+end
+
 get '/' do
   raise Sinatra::NotFound
 end
@@ -28,6 +41,8 @@ end
 post '/test' do
   push = JSON.parse(request.body.read)
   #logger.info("json payload: #{push.inspect}")
+  #logger.info("request env: #{request.env}")
+
   repo_name   = push['repository']['name']
   repo_ref    = push['ref']
   ref_array   = repo_ref.split('/')
@@ -47,7 +62,8 @@ end
 
 post '/payload' do
   push = JSON.parse(request.body.read)
-  logger.info("json payload: #{push.inspect}")
+  #logger.info("json payload: #{push.inspect}")
+  #logger.info("request env: #{request.env}")
 
   repo_name   = push['repository']['name']
   repo_ref    = push['ref']
