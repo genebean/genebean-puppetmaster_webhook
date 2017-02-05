@@ -6,14 +6,13 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with puppetmaster_webhook](#setup)
+2. [Setup](#setup)
     * [What puppetmaster_webhook affects](#what-puppetmaster_webhook-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with puppetmaster_webhook](#beginning-with-puppetmaster_webhook)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+3. [Usage - Configuration options and additional functionality](#usage)
+4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Development - Guide for contributing to the module](#development)
 
 ## Description
 
@@ -22,7 +21,7 @@ trigger r10k
 
 ## Setup
 
-### What puppetmaster_webhook affects **OPTIONAL**
+### What puppetmaster_webhook affects
 
 By default this module will install RVM system-wide and uses it to install Ruby 2.2.6.
 
@@ -37,6 +36,18 @@ on all interfaces on port 8081. It assumes that you are using a control repo nam
 This section is where you describe how to customize, configure, and do the
 fancy stuff with your module here. It's especially helpful if you include usage
 examples and code samples for doing things with your module.
+
+```puppet
+# Use the defaults:
+incldue ::puppetmaster_webhook
+```
+
+```puppet
+class { 'puppetmaster_webhook':
+  webhook_port => '8888',
+  repo_control => 'control-repo',
+}
+```
 
 ## Reference
 

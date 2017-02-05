@@ -43,9 +43,10 @@
 # === Example
 #
 #  class { 'puppetmaster_webhook':
-#    manage_repo  => false,
-#    webhook_port => '82',
+#    manage_ruby  => false,
+#    webhook_port => '8888',
 #    repo_control => 'control-repo',
+#    require      => Package['ruby'],
 #  }
 #
 # === Authors
