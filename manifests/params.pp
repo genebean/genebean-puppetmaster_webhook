@@ -3,8 +3,16 @@
 # this class manages puppetmaster_webhook's parameters
 class puppetmaster_webhook::params {
   $manage_ruby     = true
-  $r10k_cmd        = '/usr/bin/r10k'
-  $repo_control    = undef
+
+  if $manage_ruby {
+    $ruby_prefix = '/usr/local/rvm/wrappers/ruby-2.2.6/'
+    $r10k_cmd    = "${ruby_prefix}bundle exec r10k"
+  } else {
+    $ruby_prefix = undef
+    $r10k_cmd    = '/usr/bin/r10k'
+  }
+
+  $repo_control    = 'control-repo'
   $repo_hieradata  = undef
   $repo_puppetfile = undef
   $slack_url       = undef
