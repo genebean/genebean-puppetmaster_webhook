@@ -1,5 +1,9 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.3.1
+
+* Turns out that when this runs with RVM it needs its own copy of r10k
+
 ## 0.3.0
 
 * Updated docs including info on Slack

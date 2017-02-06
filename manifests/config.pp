@@ -12,11 +12,7 @@ class puppetmaster_webhook::config (
   $webhook_owner   = $::puppetmaster_webhook::webhook_owner,
   $webhook_port    = $::puppetmaster_webhook::webhook_port,
 ) {
-  if $manage_ruby {
-    $ruby_prefix = '/usr/local/rvm/wrappers/ruby-2.2.6/'
-  } else {
-    $ruby_prefix = undef
-  }
+  $ruby_prefix = $::puppetmaster_webhook::params::ruby_prefix
 
   exec { 'create_webhook_homedir':
     command => "mkdir -p ${webhook_home}",
@@ -60,7 +56,7 @@ class puppetmaster_webhook::config (
     owner   => $webhook_owner,
     group   => $webhook_group,
     mode    => '0755',
-    source  => 'puppet:///modules/puppetmaster_webhook/Gemfile',
+    content => template('puppetmaster_webhook/Gemfile.erb'),
     notify  => Exec['run_bundler'],
     require => Exec['create_webhook_homedir'],
   }
