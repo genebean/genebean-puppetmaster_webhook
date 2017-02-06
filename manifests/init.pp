@@ -9,6 +9,11 @@
 #
 # === Parameters
 #
+# *manage_ruby*
+# If true this module will install RVM and use it to install Ruby 2.2.6.
+# This does not interfere with Puppet's ruby or the system ruby.
+# Defaults to true
+#
 # *r10_cmd*
 # The full path to r10k
 # Defaults to `/usr/bin/r10k`
