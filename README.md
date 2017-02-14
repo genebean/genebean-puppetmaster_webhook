@@ -1,3 +1,4 @@
+[![Build Status][travis-img-master]][travis-ci]
 [![Puppet Forge][pf-img]][pf-link]
 [![GitHub tag][gh-tag-img]][gh-link]
 
@@ -34,17 +35,13 @@ on all interfaces on port 8081. It assumes that you are using a control repo nam
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
-
 ```puppet
 # Use the defaults:
 incldue ::puppetmaster_webhook
 ```
 
 ```puppet
-class { 'puppetmaster_webhook':
+class { '::puppetmaster_webhook':
   webhook_port => '8888',
   repo_control => 'control-repo',
   slack_url    => 'https://hooks.slack.com/services/YOUR-URL/GOES-HERE',
@@ -96,10 +93,13 @@ Defaults to `root`
 On which port should the webhook listen  
 Defaults to `root`
 
+
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+This module has been tested on CentOS 7 and should work fine on anything in
+the Red Hat family that uses `systemd`. In theory it should work on other
+distributions that also use `systemd` but testing has not been done.
+
 
 ## Development
 
