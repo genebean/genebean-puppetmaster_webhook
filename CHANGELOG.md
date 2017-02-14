@@ -1,5 +1,9 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.3.3
+
+* Fixed OS versions in metadata.json
+
 ## 0.3.2
 
 * Fixed metadata.json
