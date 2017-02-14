@@ -1,15 +1,21 @@
 {
   "name": "genebean-puppetmaster_webhook",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Gene Liverman",
   "summary": "A webhook for triggering r10k",
   "license": "BSD-3-Clause",
-  "source": "https://github.com:genebean/genebean-puppetmaster_webhook.git",
-  "project_page": "https://github.com:genebean/genebean-puppetmaster_webhook",
-  "issues_url": "https://github.com:genebean/genebean-puppetmaster_webhook/issues",
+  "source": "https://github.com/genebean/genebean-puppetmaster_webhook.git",
+  "project_page": "https://github.com/genebean/genebean-puppetmaster_webhook",
+  "issues_url": "https://github.com/genebean/genebean-puppetmaster_webhook/issues",
   "dependencies": [
     {"name":"maestrodev-rvm", "version_requirement":">= 1.13.1 < 2.0.0"}
   ],
-  "data_provider": null
+  "requirements": [
+    { "name": "puppet", "version_requirement": ">= 3.0.0 < 5.0.0" }
+  ],
+  "operatingsystem_support": [
+    { "operatingsystem": "CentOS",   "operatingsystemrelease": [ "5", "6", "7" ] },
+    { "operatingsystem": "RedHat",   "operatingsystemrelease": [ "5", "6", "7" ] }
+  ]
 }
 
