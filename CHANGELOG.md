@@ -1,5 +1,12 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.3.2
+
+* Fixed metadata.json
+* Fixed some issues with README.md
+* Updated .travis.yml
+* Added build status to README.md
+
 ## 0.3.1
 
 * Turns out that when this runs with RVM it needs its own copy of r10k
