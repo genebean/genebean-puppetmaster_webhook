@@ -19,6 +19,7 @@ r10k_cmd        = $config_obj['r10k_cmd']
 repo_control    = $config_obj['repo_control']
 repo_puppetfile = $config_obj['repo_puppetfile']
 repo_hieradata  = $config_obj['repo_hieradata']
+$slack_icon     = $config_obj['slack_icon']
 $slack_url      = $config_obj['slack_url']
 
 before do
@@ -118,7 +119,7 @@ def notify_slack(status_message)
       )
   end
 
-  notifier.post text: message[:fallback], attachments: [message]
+  notifier.post text: message[:fallback], attachments: [message], icon_url: $slack_url
 end
 
 def deploy_env(branchname, r10k_cmd)
@@ -130,6 +131,7 @@ def deploy_env(branchname, r10k_cmd)
     logger.info("environment: #{branchname} message: #{message}")
 
     status_message =  {:status => :success, :message => message.to_s, :branch => branchname, :status_code => 200}
+    notify_slack(status_message) if slack?
     status_message.to_json
   rescue => e
     logger.error("environment: #{branchname} message: #{e.message} trace: #{e.backtrace}")

@@ -15,6 +15,10 @@ class puppetmaster_webhook::params {
   $repo_control    = 'control-repo'
   $repo_hieradata  = undef
   $repo_puppetfile = undef
+  # lint:ignore:80chars
+  # lint:ignore:140chars
+  $slack_icon      = 'https://raw.githubusercontent.com/genebean/genebean-puppetmaster_webhook/master/files/P-Icon-Amber-White-lg.jpg'
+  # lint:endignore
   $slack_url       = undef
   $webhook_bind    = '0.0.0.0'
   $webhook_group   = 'root'

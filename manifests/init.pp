@@ -28,6 +28,9 @@
 # *repo_puppetfile*
 # The name of the repository where the 'Puppetfile' is stored.
 #
+# *slack_icon*
+# The url to the icon you want to use for notifications in Slack
+#
 # *slack_url*
 # The url provided during the setup of a custom webhook in Slack
 #
@@ -70,6 +73,7 @@ class puppetmaster_webhook (
   $repo_control    = $::puppetmaster_webhook::params::repo_control,
   $repo_hieradata  = $::puppetmaster_webhook::params::repo_hieradata,
   $repo_puppetfile = $::puppetmaster_webhook::params::repo_puppetfile,
+  $slack_icon      = $::puppetmaster_webhook::params::slack_icon,
   $slack_url       = $::puppetmaster_webhook::params::slack_url,
   $webhook_bind    = $::puppetmaster_webhook::params::webhook_bind,
   $webhook_group   = $::puppetmaster_webhook::params::webhook_group,
@@ -85,4 +89,3 @@ class puppetmaster_webhook (
   Class['::puppetmaster_webhook::config'] ->
   Class['::puppetmaster_webhook::service']
 }
-
