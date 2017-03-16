@@ -1,5 +1,10 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.3.4
+
+* Fixed Slack notifications for environments
+* Added icon url for Slack since it seems to ignore the one defined in Slack itself
+
 ## 0.3.3
 
 * Fixed OS versions in metadata.json
