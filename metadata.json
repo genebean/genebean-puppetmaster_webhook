@@ -1,6 +1,6 @@
 {
   "name": "genebean-puppetmaster_webhook",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "Gene Liverman",
   "summary": "A webhook for triggering r10k",
   "license": "BSD-3-Clause",
