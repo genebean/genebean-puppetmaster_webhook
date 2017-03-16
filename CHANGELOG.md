@@ -1,5 +1,9 @@
 [![GitHub tag][gh-tag-img]][gh-link]
 
+## 0.3.5
+
+* Darn comma... I missed one in the template for `webhook_cofig.json` last time.
+
 ## 0.3.4
 
 * Fixed Slack notifications for environments
