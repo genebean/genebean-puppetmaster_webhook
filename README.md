@@ -70,6 +70,9 @@ The name of the repository where the 'hieradata' is stored.
 *repo_puppetfile*  
 The name of the repository where the 'Puppetfile' is stored.
 
+*slack_icon*
+The url to the icon you want to use for notifications in Slack
+
 *slack_url*
 The url provided during the setup of a custom webhook in Slack
 

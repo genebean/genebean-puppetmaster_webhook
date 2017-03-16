@@ -5,6 +5,7 @@ class puppetmaster_webhook::config (
   $repo_control    = $::puppetmaster_webhook::repo_control,
   $repo_hieradata  = $::puppetmaster_webhook::repo_hieradata,
   $repo_puppetfile = $::puppetmaster_webhook::repo_puppetfile,
+  $slack_icon      = $::puppetmaster_webhook::slack_icon,
   $slack_url       = $::puppetmaster_webhook::slack_url,
   $webhook_bind    = $::puppetmaster_webhook::webhook_bind,
   $webhook_group   = $::puppetmaster_webhook::webhook_group,
