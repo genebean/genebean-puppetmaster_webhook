@@ -85,7 +85,7 @@ class puppetmaster_webhook (
   contain ::puppetmaster_webhook::config
   contain ::puppetmaster_webhook::service
 
-  Class['::puppetmaster_webhook::install'] ->
-  Class['::puppetmaster_webhook::config'] ->
-  Class['::puppetmaster_webhook::service']
+  Class['::puppetmaster_webhook::install']
+  -> Class['::puppetmaster_webhook::config']
+  -> Class['::puppetmaster_webhook::service']
 }
