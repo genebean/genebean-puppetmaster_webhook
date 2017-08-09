@@ -2,6 +2,8 @@
 
 ## 2017-08-06 - Release 0.3.6  
 - First run at using modulesync
+- Stopped testing against Puppet 3
+- Started testing against Puppet 5
 
 ## 0.3.5  
 - Darn comma... I missed one in the template for `webhook_cofig.json` last time.
