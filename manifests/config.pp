@@ -34,7 +34,7 @@ class puppetmaster_webhook::config (
   }
 
   file { "${webhook_home}/config.ru":
-    ensure  => present,
+    ensure  => 'file',
     owner   => $webhook_owner,
     group   => $webhook_group,
     mode    => '0755',
@@ -43,7 +43,7 @@ class puppetmaster_webhook::config (
   }
 
   file { "${webhook_home}/webhook_config.json":
-    ensure  => present,
+    ensure  => 'file',
     owner   => $webhook_owner,
     group   => $webhook_group,
     mode    => '0644',
@@ -53,7 +53,7 @@ class puppetmaster_webhook::config (
   }
 
   file { "${webhook_home}/Gemfile":
-    ensure  => present,
+    ensure  => 'file',
     owner   => $webhook_owner,
     group   => $webhook_group,
     mode    => '0755',
@@ -71,7 +71,7 @@ class puppetmaster_webhook::config (
   }
 
   file { "${webhook_home}/webhook.rb":
-    ensure  => present,
+    ensure  => 'file',
     owner   => $webhook_owner,
     group   => $webhook_group,
     mode    => '0755',
@@ -81,7 +81,7 @@ class puppetmaster_webhook::config (
   }
 
   file { '/etc/systemd/system/puppetmaster_webhook.service':
-    ensure  => present,
+    ensure  => 'file',
     mode    => '0775',
     content => template('puppetmaster_webhook/service.systemd.erb'),
     notify  => Exec['refresh_services'],
