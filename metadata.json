@@ -9,14 +9,14 @@
   "issues_url": "https://github.com/genebean/genebean-puppetmaster_webhook/issues",
   "dependencies": [
     {
-      "name": "maestrodev-rvm",
-      "version_requirement": ">= 1.13.1 < 2.0.0"
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.0"
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 3.0.0 < 5.0.0"
+      "version_requirement": ">= 4.2.0 < 6.0.0"
     }
   ],
   "operatingsystem_support": [

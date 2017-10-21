@@ -1,7 +1,7 @@
 # Configures a service for the webhook receiver
-class puppetmaster_webhook::service {
+class puppetmaster_webhook::service inherits puppetmaster_webhook {
   service { 'puppetmaster_webhook':
-    ensure     => running,
+    ensure     => 'running',
     hasstatus  => true,
     enable     => true,
     hasrestart => true,

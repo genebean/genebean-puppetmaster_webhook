@@ -5,14 +5,11 @@
 #
 # === Requirements
 #
-# No requirements.
+# r10k will need to be installed by some method other than this module. One
+# good way to do so is to use the puppet/r10k module by Vox Pupuli. By default
+# this module will assume you have installed r10k using the puppet_gem provider.
 #
 # === Parameters
-#
-# *manage_ruby*
-# If true this module will install RVM and use it to install Ruby 2.2.6.
-# This does not interfere with Puppet's ruby or the system ruby.
-# Defaults to true
 #
 # *r10_cmd*
 # The full path to r10k
@@ -57,10 +54,9 @@
 # === Example
 #
 #  class { 'puppetmaster_webhook':
-#    manage_ruby  => false,
 #    webhook_port => '8888',
 #    repo_control => 'control-repo',
-#    require      => Package['ruby'],
+#    require      => Package['r10k'],
 #  }
 #
 # === Authors
@@ -68,19 +64,21 @@
 # Author Name: Gene Liverman gene@technicalissues.us
 #
 class puppetmaster_webhook (
-  $manage_ruby     = $::puppetmaster_webhook::params::manage_ruby,
-  $r10k_cmd        = $::puppetmaster_webhook::params::r10k_cmd,
-  $repo_control    = $::puppetmaster_webhook::params::repo_control,
-  $repo_hieradata  = $::puppetmaster_webhook::params::repo_hieradata,
-  $repo_puppetfile = $::puppetmaster_webhook::params::repo_puppetfile,
-  $slack_icon      = $::puppetmaster_webhook::params::slack_icon,
-  $slack_url       = $::puppetmaster_webhook::params::slack_url,
-  $webhook_bind    = $::puppetmaster_webhook::params::webhook_bind,
-  $webhook_group   = $::puppetmaster_webhook::params::webhook_group,
-  $webhook_home    = $::puppetmaster_webhook::params::webhook_home,
-  $webhook_owner   = $::puppetmaster_webhook::params::webhook_owner,
-  $webhook_port    = $::puppetmaster_webhook::params::webhook_port,
-) inherits puppetmaster_webhook::params {
+  Stdlib::Absolutepath $puppet_agent_bin_dir,
+  Stdlib::Absolutepath $r10k_cmd,
+  String               $slack_icon,
+  String               $webhook_bind,
+  String               $webhook_group,
+  Stdlib::Absolutepath $webhook_home,
+  String               $webhook_owner,
+  String               $webhook_port,
+  Optional[String]     $slack_url,
+  Optional[String]     $repo_control,
+  Optional[String]     $repo_hieradata,
+  Optional[String]     $repo_puppetfile,
+) {
+  $bundle_cmd = "${puppet_agent_bin_dir}/bundle"
+
   contain ::puppetmaster_webhook::install
   contain ::puppetmaster_webhook::config
   contain ::puppetmaster_webhook::service

@@ -1,0 +1,13 @@
+---
+puppetmaster_webhook::puppet_agent_bin_dir : '/opt/puppetlabs/puppet/bin'
+puppetmaster_webhook::r10k_cmd             : '/opt/puppetlabs/puppet/bin/r10k'
+puppetmaster_webhook::repo_control         : 'control-repo'
+puppetmaster_webhook::repo_hieradata       :
+puppetmaster_webhook::repo_puppetfile      :
+puppetmaster_webhook::slack_icon           : 'https://raw.githubusercontent.com/genebean/genebean-puppetmaster_webhook/master/files/P-Icon-Amber-White-lg.jpg'
+puppetmaster_webhook::slack_url            :
+puppetmaster_webhook::webhook_bind         : '0.0.0.0'
+puppetmaster_webhook::webhook_group        : 'root'
+puppetmaster_webhook::webhook_home         : '/opt/webhook'
+puppetmaster_webhook::webhook_owner        : 'root'
+puppetmaster_webhook::webhook_port         : '8081'

@@ -1,0 +1,23 @@
+[Unit]
+Description=Puppet Webhook Service
+After=network.target
+
+[Service]
+# Foreground process (do not use --daemon in ExecStart or config.rb)
+Type=simple
+
+# Preferably configure a non-privileged user
+User=<%= $puppetmaster_webhook::webhook_owner %>
+
+# Specify the path to your puma application root
+WorkingDirectory=<%= $puppetmaster_webhook::webhook_home %>
+
+# Helpful for debugging socket activation, etc.
+# Environment=PUMA_DEBUG=1
+
+# The command to start Puma
+ExecStart=<%= $puppetmaster_webhook::bundle_cmd %> exec puma --environment production --bind tcp://<%= $puppetmaster_webhook::webhook_bind %>:<%= $puppetmaster_webhook::webhook_port %> --pidfile /var/run/webhook_puma.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
